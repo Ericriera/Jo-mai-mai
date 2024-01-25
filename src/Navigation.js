@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { Appearance } from "react-native";
 import Home from "./screens/Home";
 import Play from "./screens/Play";
 import Add from "./screens/Add";
@@ -26,7 +27,8 @@ function MyStack() {
           headerShadowVisible: false,
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: "#6495ed" },
-          headerTintColor: '#fff',
+          headerTintColor:
+            Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
         }}
       />
       <Stack.Screen
@@ -38,7 +40,8 @@ function MyStack() {
           headerShadowVisible: false,
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: "#6495ed" },
-          headerTintColor: '#fff',
+          headerTintColor:
+            Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
         }}
       />
     </Stack.Navigator>

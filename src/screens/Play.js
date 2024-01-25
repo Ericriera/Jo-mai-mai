@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Appearance,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -78,7 +79,7 @@ export default function Play() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
     alignItems: "center",
   },
   contentContainer: {
@@ -91,11 +92,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     flex: 1,
     marginVertical: 20,
+    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
   },
   text: {
     fontSize: 28,
     marginHorizontal: "10%",
     textAlign: "center",
+    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
   },
   next: {
     backgroundColor: "#6495ed",
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 25,
     fontWeight: "bold",
-    color: "#fff",
+    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
   },
   suggestionText: {
     color: "#6495ed",

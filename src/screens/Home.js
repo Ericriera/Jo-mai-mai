@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect } from "react";
-import { StyleSheet, Platform, Text, TouchableOpacity, View } from "react-native";
+import {
+  Appearance,
+  StyleSheet,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { preventAutoHideAsync, hideAsync } from "expo-splash-screen";
@@ -30,7 +37,7 @@ export default function Home() {
         <Text style={styles.title}>Jo mai mai</Text>
       </View>
       <View style={styles.contentContainer}>
-        <SvgComponent height={'33%'} width={'105%'} />
+        <SvgComponent height={"33%"} width={"105%"} />
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -50,7 +57,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
     alignItems: "center",
   },
   titleContainer: {
@@ -71,11 +78,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Horizon",
-    fontSize: Platform.OS === 'ios' ? 30 : 40,
+    fontSize: Platform.OS === "ios" ? 30 : 40,
     fontWeight: "bold",
-    color: "#fff",
-    marginTop: Platform.OS === 'ios' ? 40 : '8%',
-  },  
+    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
+    marginTop: Platform.OS === "ios" ? 40 : "8%",
+  },
   play: {
     width: "80%",
     backgroundColor: "#6495ed",
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 25,
     fontWeight: "bold",
-    color: "#fff",
+    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
   },
   suggestionText: {
     fontSize: 16,

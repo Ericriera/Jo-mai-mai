@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import {
+  Appearance,
   Button,
   StyleSheet,
   Platform,
@@ -24,12 +25,16 @@ export default function Add() {
     Platform.OS === "ios" &&
       navigation.setOptions({
         headerRight: () => (
-          <Button title="Enviar" color="#fff" onPress={onSend} />
+          <Button
+            title="Enviar"
+            color={Appearance.getColorScheme() === "dark" ? "#000" : "#fff"}
+            onPress={onSend}
+          />
         ),
         headerLeft: () => (
           <Button
             title="Cancelar"
-            color="#fff"
+            color={Appearance.getColorScheme() === "dark" ? "#000" : "#fff"}
             onPress={() => navigation.goBack()}
           />
         ),
@@ -59,6 +64,7 @@ export default function Add() {
           style={styles.inputContainer}
           onChangeText={(text) => setNewItem({ ...newItem, item: text })}
           placeholder="Sugerencia"
+          placeholderTextColor="#333"
           clearButtonMode="while-editing"
         />
         {Platform.OS === "android" && (
@@ -74,7 +80,7 @@ export default function Add() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
     alignItems: "center",
   },
   contentContainer: {
@@ -100,6 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: "2%",
     fontSize: 16,
+    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
   },
   send: {
     width: "90%",
@@ -112,6 +119,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 25,
     fontWeight: "bold",
-    color: "#fff",
+    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
   },
 });
