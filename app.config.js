@@ -28,6 +28,14 @@ export default {
     web: {
       favicon: "./assets/favicon.png",
     },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/horizon.otf"]
+        }
+      ]
+    ],
     extra: {
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,

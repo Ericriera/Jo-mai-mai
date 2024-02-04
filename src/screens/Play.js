@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  Appearance,
+  Image,
+  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,7 +9,6 @@ import {
 } from "react-native";
 import { database } from "../../firebase.config";
 import { collection, getDocs } from "firebase/firestore";
-import SvgComponent from "../../assets/svg/Header";
 import NoItemsModal from "../components/NoItemsModal";
 
 export default function Play() {
@@ -56,61 +56,101 @@ export default function Play() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <SvgComponent height={"95%"} width={"105%"} />
-      </View>
-      <View style={{ flex: 1 }}>
+    <ImageBackground
+      source={require("../../assets/background.png")}
+      resizeMode="cover"
+      style={styles.container}
+    >
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>Jo mai mai</Text>
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={styles.imageContainer}>
+        <Image
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={
+            items[index]?.tags.includes("x")
+              ? require("../../assets/fire.png")
+              : require("../../assets/star.png")
+          }
+        ></Image>
+      </View>
+      <View style={styles.contentContainer}>
         <Text style={styles.text}>{items[index]?.item.cat}</Text>
       </View>
-      <View style={{ flex: 1.5 }}>
-        <TouchableOpacity style={styles.next} onPress={() => getRandomIndex()}>
-          <Text style={styles.buttonText}>Següent</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.next}
+          onPress={() => getRandomIndex()}
+        >
+          <View style={styles.nextTop}>
+            <Text style={styles.buttonText}>Següent</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <NoItemsModal modalVisible={modalVisible} />
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
     alignItems: "center",
   },
+  titleContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  imageContainer: {
+    flex: 1,
+    marginTop: 20,
+    justifyContent: "center",
+  },
   contentContainer: {
-    flex: 0.29,
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flex: 1.5,
     width: "100%",
     alignItems: "center",
   },
   title: {
+    fontFamily: "Horizon",
     fontSize: 30,
-    fontWeight: "bold",
-    flex: 1,
     marginVertical: 20,
-    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
+    color: "#000",
   },
   text: {
-    fontSize: 28,
+    fontFamily: "Horizon",
+    fontSize: 25,
     marginHorizontal: "10%",
     textAlign: "center",
-    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
+    color: "#000",
   },
   next: {
-    backgroundColor: "#6495ed",
+    width: "80%",
+    backgroundColor: "#000",
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  nextTop: {
+    width: "100%",
+    backgroundColor: "#fff",
     alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 50,
-    borderRadius: 5,
+    padding: 12,
+    borderRadius: 10,
+    transform: [{ translateX: -5 }, { translateY: -5 }],
   },
   buttonText: {
+    fontFamily: "Horizon",
     fontSize: 25,
-    fontWeight: "bold",
-    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
+    color: "#000",
   },
   suggestionText: {
     color: "#6495ed",

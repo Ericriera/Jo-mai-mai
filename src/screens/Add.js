@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import {
-  Appearance,
   Button,
+  ImageBackground,
   StyleSheet,
   Platform,
   Text,
@@ -12,7 +12,6 @@ import {
 import { database } from "../../firebase.config";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
-import SvgComponent from "../../assets/svg/Header";
 
 export default function Add() {
   const navigation = useNavigation();
@@ -27,14 +26,14 @@ export default function Add() {
         headerRight: () => (
           <Button
             title="Enviar"
-            color={Appearance.getColorScheme() === "dark" ? "#000" : "#fff"}
+            color="#000"
             onPress={onSend}
           />
         ),
         headerLeft: () => (
           <Button
             title="Cancelar"
-            color={Appearance.getColorScheme() === "dark" ? "#000" : "#fff"}
+            color="#000"
             onPress={() => navigation.goBack()}
           />
         ),
@@ -47,40 +46,43 @@ export default function Add() {
   };
 
   return (
-    <View style={styles.container}>
-      {Platform.OS === "ios" && (
-        <View style={styles.contentContainer}>
-          <SvgComponent height={"100%"} width={"105%"} />
-        </View>
-      )}
+    <ImageBackground
+      source={require("../../assets/background.png")}
+      resizeMode="cover"
+      style={styles.container}
+    >
       <View style={styles.formContainer}>
-        {/* <TextInput
+        <TextInput
           style={styles.inputContainer}
           onChangeText={(text) => setNewItem({ ...newItem, type: text })}
           placeholder="Tipus"
+          placeholderTextColor="#999"
+          selectionColor="#999"
           clearButtonMode="while-editing"
-        /> */}
+        />
         <TextInput
           style={styles.inputContainer}
           onChangeText={(text) => setNewItem({ ...newItem, item: text })}
           placeholder="Sugerencia"
-          placeholderTextColor="#333"
+          placeholderTextColor="#999"
+          selectionColor="#999"
           clearButtonMode="while-editing"
         />
         {Platform.OS === "android" && (
           <TouchableOpacity style={styles.send} onPress={onSend}>
-            <Text style={styles.buttonText}>Enviar</Text>
+            <View style={styles.sendTop}>
+              <Text style={styles.buttonText}>Enviar</Text>
+            </View>
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
     alignItems: "center",
   },
   contentContainer: {
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 5,
-    marginTop: Platform.OS === "android" ? 50 : 0,
+    marginTop: Platform.OS === "android" ? 125 : 75,
     width: "100%",
     alignItems: "center",
   },
@@ -101,24 +103,30 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "90%",
     padding: 10,
-    borderColor: "#ddd",
+    borderColor: "#999",
     borderWidth: 1,
     borderRadius: 5,
     marginVertical: "2%",
     fontSize: 16,
-    color: Appearance.getColorScheme() === "dark" ? "#fff" : "#000",
+    color: "#000",
   },
   send: {
     width: "90%",
-    backgroundColor: "#6495ed",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: "#000",
+    borderRadius: 10,
     marginVertical: 50,
   },
+  sendTop: {
+    width: "100%",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 10,
+    transform: [{ translateX: -5 }, { translateY: -5 }],
+  },
   buttonText: {
+    fontFamily: "Horizon",
     fontSize: 25,
-    fontWeight: "bold",
-    color: Appearance.getColorScheme() === "dark" ? "#000" : "#fff",
+    color: "#000",
   },
 });
