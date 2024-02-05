@@ -11,7 +11,7 @@ export default {
     splash: {
       image: "./assets/splash.png",
       resizeMode: "contain",
-      backgroundColor: "#6495ed",
+      backgroundColor: "#b1c6f4",
     },
     assetBundlePatterns: ["**/*"],
     ios: {
@@ -20,10 +20,10 @@ export default {
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#6495ed",
+        backgroundColor: "#b1c6f4",
       },
       package: "com.ericriera.jomaimai",
-      googleServicesFile: "./google-services.json",
+      googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
     },
     web: {
       favicon: "./assets/favicon.png",
