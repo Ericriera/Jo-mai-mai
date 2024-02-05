@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const NoItemsModal = ({ modalVisible }) => {
@@ -23,8 +17,13 @@ const NoItemsModal = ({ modalVisible }) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>No queden més preguntes</Text>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-            <Text style={styles.textStyle}>Tornar al menu</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <View style={styles.buttonTop}>
+              <Text style={styles.textStyle}>Tornar a l'inici</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 25,
     alignItems: "center",
     shadowColor: "#000",
@@ -54,17 +53,27 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 5,
+    borderRadius: 8,
+    backgroundColor: "#000",
+    marginTop: 5,
+  },
+  buttonTop: {
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    borderColor: "#000",
+    borderWidth: 1,
     padding: 10,
-    backgroundColor: "#6495ed",
+    transform: [{ translateX: -5 }, { translateY: -5 }],
   },
   textStyle: {
+    fontFamily: "Horizon",
     fontSize: 16,
-    color: "white",
-    fontWeight: "bold",
+    color: "#000",
     textAlign: "center",
   },
   modalText: {
+    fontFamily: "Horizon",
     fontSize: 16,
     marginBottom: 15,
     textAlign: "center",

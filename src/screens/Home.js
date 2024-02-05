@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   Dimensions,
   ImageBackground,
@@ -27,7 +27,7 @@ export default function Home() {
       <View style={styles.contentContainer}>
         <TouchableOpacity
           style={styles.play}
-          onPress={() => navigation.navigate("Play")}
+          onPress={() => navigation.navigate("Select")}
         >
           <View style={styles.playTop}>
             <Text style={styles.buttonText}>Jugar</Text>
@@ -44,6 +44,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "b1c6f4",
     alignItems: "center",
   },
   titleContainer: {
@@ -73,6 +74,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderRadius: 10,
+    borderColor: "#000",
+    borderWidth: 1,
     transform: [{ translateX: -5 }, { translateY: -5 }],
   },
   buttonText: {

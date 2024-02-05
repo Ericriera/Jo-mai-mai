@@ -56,16 +56,16 @@ export default function Add() {
           style={styles.inputContainer}
           onChangeText={(text) => setNewItem({ ...newItem, type: text })}
           placeholder="Tipus"
-          placeholderTextColor="#999"
-          selectionColor="#999"
+          placeholderTextColor="#888"
+          selectionColor="#888"
           clearButtonMode="while-editing"
         />
         <TextInput
           style={styles.inputContainer}
           onChangeText={(text) => setNewItem({ ...newItem, item: text })}
           placeholder="Sugerencia"
-          placeholderTextColor="#999"
-          selectionColor="#999"
+          placeholderTextColor="#888"
+          selectionColor="#888"
           clearButtonMode="while-editing"
         />
         {Platform.OS === "android" && (
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "90%",
     padding: 10,
-    borderColor: "#999",
+    borderColor: "#000",
     borderWidth: 1,
     borderRadius: 5,
     marginVertical: "2%",
@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderRadius: 10,
+    borderColor: "#000",
+    borderWidth: 1,
     transform: [{ translateX: -5 }, { translateY: -5 }],
   },
   buttonText: {

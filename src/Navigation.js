@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Platform } from "react-native";
 import Home from "./screens/Home";
+import Select from "./screens/Select";
 import Play from "./screens/Play";
 import Add from "./screens/Add";
 
@@ -16,6 +17,18 @@ function MyStack() {
           title: "",
           headerShadowVisible: false,
           headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="Select"
+        component={Select}
+        options={{
+          title: "",
+          headerBackTitleVisible: false,
+          headerShadowVisible: false,
+          headerTitleAlign: "center",
+          headerTransparent: true,
+          headerTintColor: "#000",
         }}
       />
       <Stack.Screen

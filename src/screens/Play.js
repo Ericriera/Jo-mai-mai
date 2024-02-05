@@ -8,10 +8,11 @@ import {
   View,
 } from "react-native";
 import { database } from "../../firebase.config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import NoItemsModal from "../components/NoItemsModal";
 
-export default function Play() {
+export default function Play({ route }) {
+  const { selection } = route.params;
   const [items, setItems] = useState([]);
   const [index, setIndex] = useState(null);
   const [mounted, setMounted] = useState(false);
@@ -20,11 +21,17 @@ export default function Play() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(database, "joMaiMai"));
-        const data = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-        }));
-        setItems(data);
+        await getDocs(
+          query(
+            collection(database, "joMaiMai"),
+            where("tags", "array-contains-any", selection)
+          )
+        ).then((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+          }));
+          setItems(data);
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -71,7 +78,7 @@ export default function Play() {
             height: 200,
           }}
           source={
-            items[index]?.tags.includes("x")
+            items[index]?.tags.includes("x") && selection.includes("x")
               ? require("../../assets/fire.png")
               : require("../../assets/star.png")
           }
@@ -81,10 +88,7 @@ export default function Play() {
         <Text style={styles.text}>{items[index]?.item.cat}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.next}
-          onPress={() => getRandomIndex()}
-        >
+        <TouchableOpacity style={styles.next} onPress={() => getRandomIndex()}>
           <View style={styles.nextTop}>
             <Text style={styles.buttonText}>Següent</Text>
           </View>
@@ -145,6 +149,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderRadius: 10,
+    borderColor: "#000",
+    borderWidth: 1,
     transform: [{ translateX: -5 }, { translateY: -5 }],
   },
   buttonText: {
