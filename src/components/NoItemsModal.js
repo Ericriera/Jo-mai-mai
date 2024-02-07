@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000',
     padding: 25,
     alignItems: "center",
     shadowColor: "#000",
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#000",
     marginTop: 5,
+    transform: [{ translateX: 5 }],
   },
   buttonTop: {
     width: "100%",

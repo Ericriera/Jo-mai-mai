@@ -24,11 +24,7 @@ export default function Add() {
     Platform.OS === "ios" &&
       navigation.setOptions({
         headerRight: () => (
-          <Button
-            title="Enviar"
-            color="#000"
-            onPress={onSend}
-          />
+          <Button title="Enviar" color="#000" onPress={onSend} />
         ),
         headerLeft: () => (
           <Button
@@ -52,22 +48,26 @@ export default function Add() {
       style={styles.container}
     >
       <View style={styles.formContainer}>
-        <TextInput
-          style={styles.inputContainer}
-          onChangeText={(text) => setNewItem({ ...newItem, type: text })}
-          placeholder="Tipus"
-          placeholderTextColor="#888"
-          selectionColor="#888"
-          clearButtonMode="while-editing"
-        />
-        <TextInput
-          style={styles.inputContainer}
-          onChangeText={(text) => setNewItem({ ...newItem, item: text })}
-          placeholder="Sugerencia"
-          placeholderTextColor="#888"
-          selectionColor="#888"
-          clearButtonMode="while-editing"
-        />
+        <View style={styles.inputContainer}>
+          <View style={styles.inputContainerTop}>
+            <TextInput
+              style={styles.textContainer}
+              onChangeText={(text) => setNewItem({ ...newItem, type: text })}
+              placeholder="Tipus"
+              placeholderTextColor="#888"
+              selectionColor="#000"
+              clearButtonMode="while-editing"
+            />
+            <TextInput
+              style={styles.textContainer}
+              onChangeText={(text) => setNewItem({ ...newItem, item: text })}
+              placeholder="Sugerencia"
+              placeholderTextColor="#888"
+              selectionColor="#000"
+              clearButtonMode="while-editing"
+            />
+          </View>
+        </View>
         {Platform.OS === "android" && (
           <TouchableOpacity style={styles.send} onPress={onSend}>
             <View style={styles.sendTop}>
@@ -85,23 +85,35 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  contentContainer: {
-    flex: 0.41,
-    width: "100%",
-    alignItems: "center",
-  },
   formContainer: {
     flex: 5,
     marginTop: Platform.OS === "android" ? 125 : 75,
     width: "100%",
     alignItems: "center",
   },
+  inputContainer: {
+    backgroundColor: "#000",
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    transform: [{ translateX: 5 }],
+  },
+  inputContainerTop: {
+    backgroundColor: "#fff",
+    width: "100%",
+    alignItems: "center",
+    padding: 15,
+    borderRadius: 10,
+    borderColor: "#000",
+    borderWidth: 1,
+    transform: [{ translateX: -5 }, { translateY: -5 }],
+  },
   title: {
     fontSize: 30,
     fontWeight: "bold",
   },
-  inputContainer: {
-    width: "90%",
+  textContainer: {
+    width: "100%",
     padding: 10,
     borderColor: "#000",
     borderWidth: 1,
@@ -115,6 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     borderRadius: 10,
     marginVertical: 50,
+    transform: [{ translateX: 5 }],
   },
   sendTop: {
     width: "100%",

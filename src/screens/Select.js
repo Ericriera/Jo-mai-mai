@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     borderRadius: 10,
     marginVertical: 10,
+    transform: [{ translateX: 5 }],
   },
   playTop: {
     width: "100%",

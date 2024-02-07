@@ -2,16 +2,24 @@ import React from "react";
 import {
   Dimensions,
   ImageBackground,
+  Linking,
   StyleSheet,
   Platform,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
   const navigation = useNavigation();
+
+  const openLink = (url) => {
+    Linking.openURL(url).catch((err) =>
+      console.error("Error al descargar el archivo: ", err)
+    );
+  };
 
   return (
     <ImageBackground
@@ -37,6 +45,18 @@ export default function Home() {
           <Text style={styles.suggestionText}>Fes una sugerencia</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.creatorContainer}>
+        <TouchableOpacity onPress={() => openLink("https://www.instagram.com/ericriiera/")}>
+          <Ionicons name="logo-instagram" size={30} color="black" />
+        </TouchableOpacity>
+        <View style={{alignItems: "center"}}>
+          <Text style={styles.creatorText}>Created by</Text>
+          <Text style={styles.creatorText}>Eric Riera</Text>
+        </View>
+        <TouchableOpacity onPress={() => openLink("https://links-ericriera.netlify.app/")}>
+          <Ionicons name="link-outline" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 }
@@ -48,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    flex: 1.5,
+    flex: 2.2,
     justifyContent: "center",
   },
   contentContainer: {
@@ -56,17 +76,26 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  creatorContainer: {
+    flex: 0.5,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    alignItems: "center",
+  },
   title: {
     fontFamily: "Horizon",
     fontSize: Dimensions.get("window").width * 0.28,
     color: "#000",
-    marginVertical: Platform.OS === 'ios' ? -13 : Dimensions.get("window").width * -0.075,
+    marginVertical:
+      Platform.OS === "ios" ? -13 : Dimensions.get("window").width * -0.075,
   },
   play: {
     width: "80%",
     backgroundColor: "#000",
     borderRadius: 10,
     marginVertical: 10,
+    transform: [{ translateX: 5 }],
   },
   playTop: {
     width: "100%",
@@ -88,5 +117,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#000",
     textDecorationLine: "underline",
+  },
+  creatorText: {
+    fontFamily: "Horizon",
+    fontSize: 14,
+    color: "#000",
   },
 });
