@@ -27,6 +27,13 @@ export default {
     },
     web: {
       favicon: "./assets/favicon.png",
+      name: "Jo Mai Mai",
+      shortName: "Jo Mai Mai",
+      themeColor: "#b1c6f4",
+      backgroundColor: "#b1c6f4",
+      display: "standalone",
+      scope: "/",
+      startUrl: "/",
     },
     "plugins": [
       [
