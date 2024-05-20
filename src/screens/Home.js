@@ -1,14 +1,13 @@
 import React from "react";
 import {
-  Dimensions,
-  ImageBackground,
+  Image,
   Linking,
   StyleSheet,
-  Platform,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,16 +21,11 @@ export default function Home() {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/background.png")}
-      resizeMode="cover"
-      style={styles.container}
-    >
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Jo</Text>
-        <Text style={styles.title}>mai</Text>
-        <Text style={styles.title}>mai</Text>
-      </View>
+    <LinearGradient colors={["#b1c6f4", "#ffffff"]} style={styles.container}>
+      <Image
+        style={styles.titleContainer}
+        source={require("../../assets/logo.png")}
+      />
       <View style={styles.contentContainer}>
         <TouchableOpacity
           style={styles.play}
@@ -46,30 +40,37 @@ export default function Home() {
         </TouchableOpacity>
       </View>
       <View style={styles.creatorContainer}>
-        <TouchableOpacity onPress={() => openLink("https://www.instagram.com/ericriiera/")}>
+        <TouchableOpacity
+          onPress={() => openLink("https://www.instagram.com/ericriiera/")}
+        >
           <Ionicons name="logo-instagram" size={30} color="black" />
         </TouchableOpacity>
-        <View style={{alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <Text style={styles.creatorText}>Created by</Text>
           <Text style={styles.creatorText}>Eric Riera</Text>
         </View>
-        <TouchableOpacity onPress={() => openLink("https://links-ericriera.netlify.app/")}>
+        <TouchableOpacity
+          onPress={() => openLink("https://links-ericriera.netlify.app/")}
+        >
           <Ionicons name="link-outline" size={30} color="black" />
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "b1c6f4",
+    backgroundColor: "#b1c6f4",
     alignItems: "center",
   },
   titleContainer: {
-    flex: 2.2,
+    flex: 3,
     justifyContent: "center",
+    width: "90%",
+    height: "auto",
+    resizeMode: "contain",
   },
   contentContainer: {
     flex: 1,
@@ -82,13 +83,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
     alignItems: "center",
-  },
-  title: {
-    fontFamily: "Horizon",
-    fontSize: Dimensions.get("window").width * 0.28,
-    color: "#000",
-    marginVertical:
-      Platform.OS === "ios" ? -13 : Dimensions.get("window").width * -0.075,
   },
   play: {
     width: "80%",

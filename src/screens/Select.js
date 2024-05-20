@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import QuestionButton from "../components/QuestionButton";
 
@@ -27,15 +22,11 @@ export default function Home() {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/background.png")}
-      resizeMode="cover"
-      style={styles.container}
-    >
+    <LinearGradient colors={["#b1c6f4", "#ffffff"]} style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Escull les preguntes</Text>
       </View>
-      <View style={{ flex: 2, marginHorizontal: "5%" }}>
+      <View style={{ flex: 2, width: "90%", marginHorizontal: "5%" }}>
         <View style={styles.selectContainer}>
           <QuestionButton
             text="Chill"
@@ -58,7 +49,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -73,7 +64,6 @@ const styles = StyleSheet.create({
   },
   selectContainer: {
     flex: 1,
-    display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
@@ -89,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 20,
     color: "#000",
+    textAlign: "center",
   },
   play: {
     width: "80%",

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
   Image,
-  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { database } from "../../firebase.config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import NoItemsModal from "../components/NoItemsModal";
@@ -63,9 +63,8 @@ export default function Play({ route }) {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/background.png")}
-      resizeMode="cover"
+    <LinearGradient
+      colors={["#b1c6f4", "#ffffff" ]}
       style={styles.container}
     >
       <View style={styles.titleContainer}>
@@ -95,7 +94,7 @@ export default function Play({ route }) {
         </TouchableOpacity>
       </View>
       <NoItemsModal modalVisible={modalVisible} />
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    flex: 1,
+    flex: 1.2,
     justifyContent: "flex-end",
   },
   imageContainer: {
@@ -114,13 +113,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   contentContainer: {
-    flex: 1,
+    flex: 1.5,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
   buttonContainer: {
-    flex: 1.5,
+    flex: 1.3,
     width: "100%",
     alignItems: "center",
   },
@@ -129,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 20,
     color: "#000",
+    textAlign: "center",
   },
   text: {
     fontFamily: "Horizon",

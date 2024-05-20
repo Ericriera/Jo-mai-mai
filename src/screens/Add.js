@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import {
   Button,
-  ImageBackground,
   StyleSheet,
   Platform,
   Text,
@@ -9,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { database } from "../../firebase.config";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
@@ -42,9 +42,8 @@ export default function Add() {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/background.png")}
-      resizeMode="cover"
+    <LinearGradient
+      colors={["#b1c6f4", "#ffffff" ]}
       style={styles.container}
     >
       <View style={styles.formContainer}>
@@ -76,7 +75,7 @@ export default function Add() {
           </TouchableOpacity>
         )}
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 

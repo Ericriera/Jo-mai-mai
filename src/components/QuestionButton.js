@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+} from "react-native";
 
 export default function QuestionButton({
   text,
@@ -59,6 +66,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: "100%",
+    width: "auto",
     aspectRatio: 1,
   },
   buttonText: {
