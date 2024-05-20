@@ -68,7 +68,7 @@ export default function Add() {
             />
           </View>
         </View>
-        {Platform.OS === "android" && (
+        {Platform.OS !== "ios" && (
           <TouchableOpacity style={styles.send} onPress={onSend}>
             <View style={styles.sendTop}>
               <Text style={styles.buttonText}>Enviar</Text>
