@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { database } from "../../firebase.config";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -63,12 +57,16 @@ export default function Play({ route }) {
   };
 
   return (
-    <LinearGradient
-      colors={["#b1c6f4", "#ffffff" ]}
-      style={styles.container}
-    >
+    <LinearGradient colors={["#b1c6f4", "#ffffff"]} style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Jo mai mai</Text>
+        {items[index]?.tags.includes("drink") && selection.includes("drink") ? (
+          <Text style={styles.title}>Beuen</Text>
+        ) : items[index]?.tags.includes("dare") &&
+          selection.includes("dare") ? (
+          <Text style={styles.title}>Prova</Text>
+        ) : (
+          <Text style={styles.title}>Jo mai mai</Text>
+        )}
       </View>
       <View style={styles.imageContainer}>
         <Image
@@ -79,6 +77,12 @@ export default function Play({ route }) {
           source={
             items[index]?.tags.includes("x") && selection.includes("x")
               ? require("../../assets/fire.png")
+              : items[index]?.tags.includes("drink") &&
+                selection.includes("drink")
+              ? require("../../assets/glass.png")
+              : items[index]?.tags.includes("dare") &&
+                selection.includes("dare")
+              ? require("../../assets/flash.png")
               : require("../../assets/star.png")
           }
         ></Image>
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    flex: 1.2,
+    flex: 1,
     justifyContent: "flex-end",
   },
   imageContainer: {

@@ -8,11 +8,15 @@ export default function Home() {
   const navigation = useNavigation();
   const [chillSelected, setChillSelected] = useState(false);
   const [xSelected, setXSelected] = useState(false);
+  const [drinkSelected, setDrinkSelected] = useState(false);
+  const [dareSelected, setDareSelected] = useState(false);
 
   const onPressPlay = () => {
     const selection = [];
     if (chillSelected) selection.push("chill");
     if (xSelected) selection.push("x");
+    if (drinkSelected) selection.push("drink");
+    if (dareSelected) selection.push("dare");
 
     if (selection.length > 0) {
       navigation.navigate("Play", {
@@ -35,10 +39,24 @@ export default function Home() {
             setIsSelected={setChillSelected}
           />
           <QuestionButton
-            text="X"
+            text="Hot"
             image={require("../../assets/fire.png")}
             isSelected={xSelected}
             setIsSelected={setXSelected}
+          />
+        </View>
+        <View style={styles.selectContainer}>
+          <QuestionButton
+            text="Beuen"
+            image={require("../../assets/glass.png")}
+            isSelected={drinkSelected}
+            setIsSelected={setDrinkSelected}
+          />
+          <QuestionButton
+            text="Proves"
+            image={require("../../assets/flash.png")}
+            isSelected={dareSelected}
+            setIsSelected={setDareSelected}
           />
         </View>
       </View>
@@ -59,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    flex: 1,
+    flex: 0.8,
     justifyContent: "flex-end",
   },
   selectContainer: {
@@ -70,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    flex: 1,
+    flex: 0.8,
     width: "100%",
     alignItems: "center",
   },
