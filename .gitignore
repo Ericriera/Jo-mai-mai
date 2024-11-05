@@ -37,3 +37,6 @@ eas.json
 
 # typescript
 *.tsbuildinfo
+
+# Local Netlify folder
+.netlify

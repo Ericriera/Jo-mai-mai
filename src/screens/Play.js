@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { database } from "../../firebase.config";
-import { collection, query, where, getDocs } from "firebase/firestore";
 import NoItemsModal from "../components/NoItemsModal";
 
 export default function Play({ route }) {
   const { selection } = route.params;
-  const [items, setItems] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -15,17 +13,19 @@ export default function Play({ route }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getDocs(
-          query(
-            collection(database, "joMaiMai"),
-            where("tags", "array-contains-any", selection)
-          )
-        ).then((querySnapshot) => {
-          const data = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-          }));
-          setItems(data);
-        });
+        const category = selection.length === 1 ? selection[0] : "";
+        const response = await fetch(
+          `https://jo-mai-mai-api.onrender.com/questions/?category=${category}`,
+          {
+            method: "GET",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        const data = await response.json();
+        setQuestions(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -37,36 +37,32 @@ export default function Play({ route }) {
   }, []);
 
   useEffect(() => {
-    if (items.length > 0) {
+    if (questions.length > 0) {
       getRandomIndex();
     }
   }, [mounted]);
 
   const getRandomIndex = () => {
     if (index !== null) {
-      setItems((prevItems) => {
-        const newItems = prevItems.filter((item, key) => key !== index);
-        return newItems;
+      setQuestions((prevQuestions) => {
+        const newQuestions = prevQuestions.filter(
+          (question, key) => key !== index
+        );
+        return newQuestions;
       });
     }
-    if (items.length - 1 === 0) setModalVisible(true);
+    if (questions.length - 1 === 0) setModalVisible(true);
     const seed = new Date().getTime();
     const random = seed + Math.random();
-    const randomIndex = Math.floor(random * items.length) % (items.length - 1);
+    const randomIndex =
+      Math.floor(random * questions.length) % (questions.length - 1);
     setIndex(randomIndex);
   };
 
   return (
     <LinearGradient colors={["#b1c6f4", "#ffffff"]} style={styles.container}>
       <View style={styles.titleContainer}>
-        {items[index]?.tags.includes("drink") && selection.includes("drink") ? (
-          <Text style={styles.title}>Beuen</Text>
-        ) : items[index]?.tags.includes("dare") &&
-          selection.includes("dare") ? (
-          <Text style={styles.title}>Prova</Text>
-        ) : (
-          <Text style={styles.title}>Jo mai mai</Text>
-        )}
+        <Text style={styles.title}>Jo mai mai</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image
@@ -75,20 +71,14 @@ export default function Play({ route }) {
             height: 200,
           }}
           source={
-            items[index]?.tags.includes("x") && selection.includes("x")
+            questions[index]?.categories.includes("hot") && selection.includes("hot")
               ? require("../../assets/fire.png")
-              : items[index]?.tags.includes("drink") &&
-                selection.includes("drink")
-              ? require("../../assets/glass.png")
-              : items[index]?.tags.includes("dare") &&
-                selection.includes("dare")
-              ? require("../../assets/flash.png")
               : require("../../assets/star.png")
           }
         ></Image>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>{items[index]?.item.cat}</Text>
+        <Text style={styles.text}>{questions[index]?.question.cat}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.next} onPress={() => getRandomIndex()}>
@@ -113,17 +103,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 25,
     justifyContent: "center",
   },
   contentContainer: {
-    flex: 1.5,
+    flex: 1.6,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
   buttonContainer: {
-    flex: 1.3,
+    flex: 1.2,
     width: "100%",
     alignItems: "center",
   },

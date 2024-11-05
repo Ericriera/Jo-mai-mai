@@ -7,16 +7,12 @@ import QuestionButton from "../components/QuestionButton";
 export default function Home() {
   const navigation = useNavigation();
   const [chillSelected, setChillSelected] = useState(false);
-  const [xSelected, setXSelected] = useState(false);
-  const [drinkSelected, setDrinkSelected] = useState(false);
-  const [dareSelected, setDareSelected] = useState(false);
+  const [hotSelected, setHotSelected] = useState(false);
 
   const onPressPlay = () => {
     const selection = [];
     if (chillSelected) selection.push("chill");
-    if (xSelected) selection.push("x");
-    if (drinkSelected) selection.push("drink");
-    if (dareSelected) selection.push("dare");
+    if (hotSelected) selection.push("hot");
 
     if (selection.length > 0) {
       navigation.navigate("Play", {
@@ -41,22 +37,8 @@ export default function Home() {
           <QuestionButton
             text="Hot"
             image={require("../../assets/fire.png")}
-            isSelected={xSelected}
-            setIsSelected={setXSelected}
-          />
-        </View>
-        <View style={styles.selectContainer}>
-          <QuestionButton
-            text="Beuen"
-            image={require("../../assets/glass.png")}
-            isSelected={drinkSelected}
-            setIsSelected={setDrinkSelected}
-          />
-          <QuestionButton
-            text="Proves"
-            image={require("../../assets/flash.png")}
-            isSelected={dareSelected}
-            setIsSelected={setDareSelected}
+            isSelected={hotSelected}
+            setIsSelected={setHotSelected}
           />
         </View>
       </View>

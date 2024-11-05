@@ -9,15 +9,13 @@ import {
   View,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { database } from "../../firebase.config";
-import { collection, addDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Add() {
   const navigation = useNavigation();
-  const [newItem, setNewItem] = useState({
-    type: "",
-    item: "",
+  const [newSuggestion, setNewSuggestion] = useState({
+    suggestion: "",
+    category: "",
   });
 
   useLayoutEffect(() => {
@@ -37,21 +35,43 @@ export default function Add() {
   }, []);
 
   const onSend = async () => {
-    await addDoc(collection(database, "suggestions"), newItem);
-    navigation.goBack();
+    try {
+      const response = await fetch(
+        `https://jo-mai-mai-api.onrender.com/suggestions/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: "",
+            suggestion: newSuggestion.suggestion,
+            category: newSuggestion.category,
+            created_at: "",
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error en el envío");
+      }
+
+      navigation.goBack();
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
   };
 
   return (
-    <LinearGradient
-      colors={["#b1c6f4", "#ffffff" ]}
-      style={styles.container}
-    >
+    <LinearGradient colors={["#b1c6f4", "#ffffff"]} style={styles.container}>
       <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
           <View style={styles.inputContainerTop}>
             <TextInput
               style={styles.textContainer}
-              onChangeText={(text) => setNewItem({ ...newItem, type: text })}
+              onChangeText={(text) =>
+                setNewSuggestion({ ...newSuggestion, category: text })
+              }
               placeholder="Tipus"
               placeholderTextColor="#888"
               selectionColor="#000"
@@ -59,7 +79,9 @@ export default function Add() {
             />
             <TextInput
               style={styles.textContainer}
-              onChangeText={(text) => setNewItem({ ...newItem, item: text })}
+              onChangeText={(text) =>
+                setNewSuggestion({ ...newSuggestion, suggestion: text })
+              }
               placeholder="Sugerencia"
               placeholderTextColor="#888"
               selectionColor="#000"

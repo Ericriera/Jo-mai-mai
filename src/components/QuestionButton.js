@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Platform,
 } from "react-native";
 
 export default function QuestionButton({
